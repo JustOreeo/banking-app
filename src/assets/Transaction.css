@@ -114,3 +114,18 @@
   align-self: center;
   margin-block-start: 2rem;
 }
+
+.account-switch {
+  cursor: pointer;
+
+  font-size: 0.7rem;
+  color: var(--primary-green-400);
+
+  margin-inline-start: 0.25rem;
+  filter: drop-shadow(0px 1px 1px hsl(0, 0%, 0%, 0.25));
+
+  transition: filter 250ms ease;
+}
+.account-switch:hover {
+  filter: drop-shadow(0px 1px 1px hsl(0, 0%, 0%, 0.25)) brightness(1.2);
+}

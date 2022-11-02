@@ -5,7 +5,12 @@ export default function Transaction(props) {
   return (
     <div className="transaction">
       <div className="transaction--header">
-        <p className="user-info__name">Username Last Name</p>
+        <p className="user-info__name">
+          Username Last Name{" "}
+          <span className="account-switch">
+            <i class="fa-solid fa-repeat"></i>
+          </span>
+        </p>
         <p className="user-email">user1@gmail.com</p>
       </div>
       <div className="transaction--body">
