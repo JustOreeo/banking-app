@@ -1,5 +1,5 @@
 import './App.css'
-import Login from './Components/Login';
+import Login from './components/Login';
 import React,{useState,useEffect} from 'react';
 const LOCAL_STORAGE_USERS="storedUsers";
 function App() {
