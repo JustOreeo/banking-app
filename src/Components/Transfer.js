@@ -1,7 +1,6 @@
-import React from 'react'
+import React from "react";
+import Transaction from "./SubComponents/Transaction";
 
 export default function Transfer() {
-  return (
-    <div>Transfer</div>
-  )
+  return <Transaction transactionType="transfer" />;
 }

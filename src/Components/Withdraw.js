@@ -1,7 +1,6 @@
-import React from 'react'
+import React from "react";
+import Transaction from "./SubComponents/Transaction";
 
 export default function Withdraw() {
-  return (
-    <div>Withdraw</div>
-  )
+  return <Transaction transactionType="withdraw" />;
 }
