@@ -1,5 +1,5 @@
-import '../assets/App.css';
-import Login from './Login';
+import './App.css'
+import Login from './Components/Login';
 import React,{useState,useEffect} from 'react';
 const LOCAL_STORAGE_USERS="storedUsers";
 function App() {
@@ -46,7 +46,7 @@ function App() {
   return (
     <>
     <div className='container'>
-    <Login Userlist={users}/>
+      <Login Userlist={users}/>
     </div>
     
     </>
