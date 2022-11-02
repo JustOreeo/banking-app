@@ -1,74 +1,72 @@
 import React, { useState, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import '../assets/Login.css';
 
-export default function Login({Userlist}) {
-    const emailRef=useRef()
-    const passRef=useRef()
+const Login = () => {
+    const navigate = useNavigate();
+    const [ input, setInput ] = useState({
+        email: "",
+        password: "",
+    });
     const [emailError, setEmailError] = useState('')
-    const [passError, setPassError] = useState('')
+    const [passwordError, setPasswordError] = useState('')
     const [loginError, setLoginError] = useState('')
-    let email;
-    let password;
     
-    //Functions for Login Validations
-    function handleEmail(){
-      email=emailRef.current.value  
-
-      if(email===""){
-        setEmailError("Email is required")
-        emailRef.current.classList.add("error")
-      }else{
-        setEmailError("")
-        emailRef.current.classList.remove("error")
-      }
-      setLoginError("")
-    }
-    function handlePass(){
-      password=passRef.current.value
-
-      if(password===""){
-        setPassError("Password is required")
-        passRef.current.classList.add("error")
-      }else{
-        setPassError("")
-        passRef.current.classList.remove("error")
-      }
-      setLoginError("")
-    }
-    function handleLogin(e){
-      e.preventDefault();
-      email=emailRef.current.value
-      password=passRef.current.value
-      let account;
-      if(email===""){
-        setEmailError("Email is required")
-        emailRef.current.classList.add("error")
-      }
-      if(password===""){
-        setPassError("Password is required")
-        passRef.current.classList.add("error")
-      }
-      if(email!==""&&password!==""){
-        account= Userlist.find(users => users.email === "admin@gmail.com")
-        if(email===account.email&&password===account.password){
-          setLoginError("Success")
-        }else{
-          setLoginError("Invalid email/password")
-          passRef.current.classList.remove("error")
-          emailRef.current.classList.remove("error")
+    // FUNCTION THAT HANDLES LOGIN
+    const handleLogin = (e) => {
+        e.preventDefault();
+        const loggedUser = JSON.parse(localStorage.getItem("users"));
+        if( input.email === ""){
+            setEmailError("Email is required")
+            //emailRef.current.classList.add("error")
         }
-      }
+        if( input.password === ""){
+            setPasswordError("Password is required")
+            //passRef.current.classList.add("error")
+        }
+        if ( input.email === loggedUser.email && input.password === loggedUser.password) {
+            localStorage.setItem("loggedIn", true);
+            navigate("/")
+        } else {
+            setLoginError("Invalid email/password")
+        }
     }
-  return (
-    <div>
-      <form onSubmit={handleLogin} className='login-container' noValidate> 
-        <input type="email" ref={emailRef} placeholder='Email' className="input" onChange={handleEmail}/>
-        <span className="errorMsg">{emailError}</span>
-        <input type="password" ref={passRef} placeholder='Password' className="input" onChange={handlePass}/>
-        <span className="errorMsg">{passError}</span>
-        <span className="errorMsg">{loginError}</span>
-        <button type="submit" className="btn">Login</button>  
-      </form>
-    </div>
-  )
+    return (
+        <div>
+        <form onSubmit={handleLogin} className='login-container' noValidate> 
+            <input 
+                name="email"
+                type="email" 
+                value={input.email}
+                placeholder='Email' 
+                className="input" 
+                onChange={(e) => {
+                    setInput({
+                        ...input,
+                        [e.target.name]: e.target.value,
+                    })
+                }}
+            />
+            <span className="errorMsg">{emailError}</span>
+            <input 
+                name="password"
+                type="password" 
+                value={input.password}
+                placeholder='Password' 
+                className="input" 
+                onChange={(e) => {
+                    setInput({
+                        ...input,
+                        [e.target.name]: e.target.value,
+                    })
+                }}
+            />
+            {/* <span className="errorMsg">{passError}</span> */}
+            <span className="errorMsg">{loginError}</span>
+            <button type="submit" className="btn">Login</button>  
+        </form>
+        </div>
+    )
 }
+
+export default Login;
