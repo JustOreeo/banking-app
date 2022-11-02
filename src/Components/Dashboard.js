@@ -8,6 +8,7 @@ const Dashboard = () => {
         localStorage.removeItem("loggedIn");
         navigate("/login");
     }
+    
     return (
         <div>
             DASHBOARD
