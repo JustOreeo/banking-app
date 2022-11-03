@@ -8,14 +8,46 @@ const Login = () => {
         email: "",
         password: "",
     });
-    const [emailError, setEmailError] = useState('')
-    const [passwordError, setPasswordError] = useState('')
-    const [loginError, setLoginError] = useState('')
+    const [emailError, setEmailError] = useState('');
+    const [passwordError, setPasswordError] = useState('');
+    const [loginError, setLoginError] = useState('');
+    const [ isAvailable, setIsAvailable ] = useState([true, true]);
+
+    const handleSearchCredential = () => {
+        const loggedUser = JSON.parse(localStorage.getItem("users"));
+        let found = false;
+
+        // Loop through all the users in localStorage then set true each time it satisfies the requirement
+        loggedUser.forEach(user => {
+            console.log("User: ", user);
+            console.log("Inpute Email: ", input.email);
+            console.log("Inpute Password: ", input.password);
+            console.log("Bool?", user.email === input.email && user.password === input.password)
+            if(user.email === input.email) {
+                found = true;
+                setIsAvailable([true, false])
+                if (user.password === input.password) {
+                    localStorage.setItem("loggedIn", true);
+                    setIsAvailable([true, true])
+                }
+            } else {
+                return isAvailable;
+            }
+        })
+
+        if(!found)
+            setIsAvailable([false, true]);
+
+        return found;
+    }
     
-    // FUNCTION THAT HANDLES LOGIN
+    // Function that handles user login
     const handleLogin = (e) => {
         e.preventDefault();
         const loggedUser = JSON.parse(localStorage.getItem("users"));
+        console.log(loggedUser);
+        console.log("CHECK: ", handleSearchCredential());
+        
         if( input.email === ""){
             setEmailError("Email is required")
             //emailRef.current.classList.add("error")
@@ -24,9 +56,8 @@ const Login = () => {
             setPasswordError("Password is required")
             //passRef.current.classList.add("error")
         }
-        if ( input.email === loggedUser.email && input.password === loggedUser.password) {
-            localStorage.setItem("loggedIn", true);
-            navigate("/")
+        if ( handleSearchCredential() ) {
+            navigate("/dashboard")
         } else {
             setLoginError("Invalid email/password")
         }
