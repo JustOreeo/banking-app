@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import { sideMenu } from "../constants/sideMenu";
+import { sideMenu } from "../../constants/sideMenu";
 
 const Sidebar = () => {
     const menuItem = sideMenu
