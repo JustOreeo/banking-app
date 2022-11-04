@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
   --primary-green-400: #66a659;
   --primary-green-800: #041a00;
